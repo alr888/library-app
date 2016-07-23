@@ -6,8 +6,11 @@ export default Model.extend({
   email: attr('string'),
   message: attr('string'),
   
-  //isValid: Ember.computed.notEmpty('name'),
-  isValid: Ember.computed.match('email', /^.+@.+\..+$/),
-  isLong: Ember.computed.gte('message.length',7),
-    
+  isValidEmail: Ember.computed.match('email', /^.+@.+\..+$/),
+  isLongEnough: Ember.computed.gte('message.length',7),
+  
+  isValid: Ember.computed.and('isValidEmail', 'isLongEnough'),
+
+  isDisabled: Ember.computed.not('isValid')  
+	
 });
